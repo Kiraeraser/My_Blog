@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block b_title %}
+{{title}}
+{% endblock %}
+{% block body%}
+<p> contact details as as follow </p>
+<p>
+{% for a in num %}
+
+	<li>{{a}}</li>
+
+{% endfor %}
+{{user.is_authenticated}}
+</p>
+{% endblock %}

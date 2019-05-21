@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block b_title %}
+blog
+{% endblock %}
+{% block body%}
+<div class='row'>
+{% include 'blog/list-inline.html' with blog_post=object truncate=False detail=True %}
+
+{% if request.user.is_authenticated %}
+	{% if request.user.is_staff %}
+	<div class='col-12'>
+		<a href ='{{ object.get_edit_url }}'>Edit</a>
+		<a href ='{{ object.get_delete_url }}'>Delete </a>
+	</div>
+	{% endif %}
+{% endif %}
+</div>
+<form action ='{{ object.get_absolute_url }}/dislikes'method="POST">{% csrf_token %}
+	
+	<button name="{{object.slug}}" value="{{object.slug}}"class='btn btn-outline-danger float-right btn-sm'>DISLIKE {{object.dislikes}}</button>
+</form>
+<form  action="{{ object.get_absolute_url }}/likes" method="POST">{% csrf_token %}
+	<button name="{{object.slug}}" value="{{object.slug}}"class='btn btn-outline-success float-right btn-sm'>LIKE {{object.likes}}</button>
+</form>
+<p></p>
+
+
+
+{% endblock %}
